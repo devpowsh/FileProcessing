@@ -5,8 +5,52 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FileProcessing"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="File Processing" Height="450" Width="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
+        <!-- Загрузка файлов -->
+        <GroupBox Grid.Row="0" Header="Загрузка файлов" Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Загрузить Input.csv" Click="LoadCsv_Click" Margin="5"/>
+                <Button Content="Загрузить TypeInfos.json" Click="LoadJson_Click" Margin="5"/>
+                <TextBlock x:Name="FileStatusText" Margin="10" VerticalAlignment="Center"/>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Управление выбором -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+            <Button Content="Выбрать все" Click="SelectAll_Click" Margin="5"/>
+            <Button Content="Снять выделение" Click="DeselectAll_Click" Margin="5"/>
+        </StackPanel>
+
+        <!-- Таблица данных -->
+        <DataGrid Grid.Row="2" x:Name="DataGrid" AutoGenerateColumns="False" 
+                  CanUserAddRows="False" Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Header="Выбрать" Binding="{Binding IsSelected}"/>
+                <DataGridTextColumn Header="Путь" Binding="{Binding Path}" Width="*"/>
+                <DataGridTextColumn Header="Тип" Binding="{Binding Type}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Кнопки обработки -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Обработать данные" Click="ProcessData_Click" 
+                    Margin="5" Padding="10,5"/>
+            <Button Content="Сохранить XML" Click="SaveXml_Click" 
+                    Margin="5" Padding="10,5"/>
+        </StackPanel>
+
+        <!-- Статус -->
+        <StatusBar Grid.Row="4">
+            <TextBlock x:Name="StatusText"/>
+        </StatusBar>
     </Grid>
 </Window>
